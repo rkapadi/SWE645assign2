@@ -49,7 +49,7 @@ pipeline {
                     gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
                     gcloud config set project homework2-452219
                     gcloud container clusters get-credentials survey-cluster --zone us-east4-a
-                    kubectl set image deployment/deployment-1 surveyyy-1="$IMAGE_NAME:BUILD_NUMBER" --record
+                    kubectl set image deployment/deployment-2 surveyyy-sha256-1="$IMAGE_NAME:BUILD_NUMBER" --record
                     '''
                 }
             }
