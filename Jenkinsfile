@@ -28,7 +28,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:$BUILD_NUMBER .'
+                sh 'docker build -t "$IMAGE_NAME:$BUILD_NUMBER" .'
             }
         }
 
@@ -37,19 +37,19 @@ pipeline {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
                     sh 'gcloud auth configure-docker us-east4-docker.pkg.dev'
-                    sh 'docker push $IMAGE_NAME:$BUILD_NUMBER'
+                    sh 'docker push "$IMAGE_NAME:$BUILD_NUMBER"'
                 }
             }
         }
 
-        stage('Deply to GKE') {
+        stage('Deploy to GKE') {
             steps {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     sh '''
                     gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
                     gcloud config set project homework2-452219
                     gcloud container clusters get-credentials survey-cluster --zone us-east4-a
-                    kubectl set image deployment/survey-app survey-app=$IMAGE_NAME:BUILD_NUMBER --record
+                    kubectl set image deployment/survey-app survey-app="$IMAGE_NAME:BUILD_NUMBER" --record
                     '''
                 }
             }
