@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         PROJECT_ID = 'homework2-452219'
-        IMAGE_NAME = 'us-east4-docker.pkg.dev/homework2-452219/my-repo/ramshak123/surveyyy:latest'
+        IMAGE_NAME = 'us-east4-docker.pkg.dev/homework2-452219/my-repo/ramshak123/surveyyy'
     }
 
     stages {
