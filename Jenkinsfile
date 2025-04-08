@@ -62,7 +62,7 @@ pipeline {
                 sh '''
                 kubectl create deployment backend-survey-deployment \
                 --image=ramshak123/backend-survey:latest \
-                --port=8080
+                --port=8083
                 '''
 
                 // Expose the deployment via a service (LoadBalancer)
