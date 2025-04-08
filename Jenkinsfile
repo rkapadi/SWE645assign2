@@ -5,11 +5,12 @@ pipeline {
         PROJECT_ID = 'homework2-452219'
         CLUSTER = 'survey-cluster'
         CLUSTER_ZONE = 'us-east4-a'
-        IMAGE_NAME = 'ramshak123/backend-survey'
+        // IMAGE_NAME = 'ramshak123/backend-survey'
+        IMAGE_NAME = "${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/backend-survey"
         IMAGE_TAG = 'latest'
         IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
         DEPLOYMENT_NAME = 'springboot-app'
-        REGION = 'us-east4-a'
+        REGION = 'us-east4'
 
         REPO_NAME = 'survey-repo'
     }

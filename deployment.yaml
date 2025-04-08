@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: springboot-container
-        image: us-east1-docker.pkg.dev/survey-application-456213/survey-repo/springboot-app:latest
+        # image: us-east1-docker.pkg.dev/survey-application-456213/survey-repo/springboot-app:latest
+        image: us-east4-docker.pkg.dev/homework2-452219/survey-repo/backend-survey:latest
         ports:
         - containerPort: 8080
         env:
