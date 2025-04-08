@@ -8,7 +8,7 @@ pipeline {
     IMAGE_NAME = 'ramshak123/backend-survey'
     IMAGE_TAG = 'latest'
     FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
-    DEPLOYMENT_NAME = 'backend-survey-deployment'
+    DEPLOYMENT_NAME = 'assign3-deployment'
   }
 
     stages {
@@ -60,14 +60,14 @@ pipeline {
             steps {
                 // Create a new Kubernetes deployment dynamically using kubectl
                 sh '''
-                kubectl create deployment backend-survey-deployment \
+                kubectl create deployment assign3-deployment \
                 --image=ramshak123/backend-survey:latest \
                 --port=8083
                 '''
 
                 // Expose the deployment via a service (LoadBalancer)
                 sh '''
-                kubectl expose deployment backend-survey-deployment \
+                kubectl expose deployment assign3-deployment \
                 --type=LoadBalancer \
                 --port=80 \
                 --target-port=8083
@@ -75,7 +75,7 @@ pipeline {
 
                 // Optionally update the image if deployment exists
                 sh '''
-                kubectl set image deployment/backend-survey-deployment backend-survey=ramshak123/backend-survey:latest
+                kubectl set image deployment/assign3-deployment backend-survey=ramshak123/backend-survey:latest
                 '''
 
                 // sh """
