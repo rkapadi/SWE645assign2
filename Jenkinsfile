@@ -14,7 +14,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/rkapadi/SWE645assign2'
+                // git 'https://github.com/rkapadi/SWE645assign2'
+                cleanWs()
+                git credentialsId: 'git-token', url: 'https://github.com/rkapadi/SWE645assign2', branch: 'main'
             }
         }
 
