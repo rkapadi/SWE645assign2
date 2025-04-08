@@ -37,13 +37,19 @@ pipeline {
 
         stage('Push Docker Image to Artifact Registry') {
             steps {
-                withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    sh '''
-                        gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-                        gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh """
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                         docker push $IMAGE
-                    '''
+                    """
                 }
+                // withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                //     sh '''
+                //         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+                //         gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
+                //         docker push $IMAGE
+                //     '''
+                // }
             }
         }
 
