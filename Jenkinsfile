@@ -58,10 +58,30 @@ pipeline {
 
         stage('Deploy to GKE') {
             steps {
-                sh """
-                kubectl set image deployment/${DEPLOYMENT_NAME} backend-survey=${FULL_IMAGE} || \
-                kubectl apply -f k8s/
-                """
+                // Create a new Kubernetes deployment dynamically using kubectl
+                sh '''
+                kubectl create deployment student-survey-deployment \
+                --image=ramshak123/backend-survey:latest \
+                --port=8080
+                '''
+
+                // Expose the deployment via a service (LoadBalancer)
+                sh '''
+                kubectl expose deployment student-survey-deployment \
+                --type=LoadBalancer \
+                --port=80 \
+                --target-port=8080
+                '''
+
+                // Optionally update the image if deployment exists
+                sh '''
+                kubectl set image deployment/student-survey-deployment backend-survey=ramshak123/backend-survey:latest
+                '''
+                
+                // sh """
+                // kubectl set image deployment/${DEPLOYMENT_NAME} backend-survey=${FULL_IMAGE} || \
+                // kubectl apply -f k8s/
+                // """
             }
         }
     }
