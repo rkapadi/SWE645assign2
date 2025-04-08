@@ -5,8 +5,7 @@ pipeline {
         PROJECT_ID = 'homework2-452219'
         CLUSTER = 'survey-cluster'
         CLUSTER_ZONE = 'us-east4-a'
-        // IMAGE_NAME = 'ramshak123/backend-survey'
-        IMAGE_NAME = "${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/backend-survey"
+        IMAGE_NAME = 'ramshak123/backend-survey'
         IMAGE_TAG = 'latest'
         IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
         DEPLOYMENT_NAME = 'springboot-app'
@@ -43,13 +42,6 @@ pipeline {
                         docker push $IMAGE
                     """
                 }
-                // withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                //     sh '''
-                //         gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-                //         gcloud auth configure-docker $REGION-docker.pkg.dev --quiet
-                //         docker push $IMAGE
-                //     '''
-                // }
             }
         }
 
