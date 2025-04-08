@@ -70,14 +70,14 @@ pipeline {
                 kubectl expose deployment student-survey-deployment \
                 --type=LoadBalancer \
                 --port=80 \
-                --target-port=8080
+                --target-port=8083
                 '''
 
                 // Optionally update the image if deployment exists
                 sh '''
                 kubectl set image deployment/student-survey-deployment backend-survey=ramshak123/backend-survey:latest
                 '''
-                
+
                 // sh """
                 // kubectl set image deployment/${DEPLOYMENT_NAME} backend-survey=${FULL_IMAGE} || \
                 // kubectl apply -f k8s/
